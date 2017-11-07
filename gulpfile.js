@@ -11,7 +11,7 @@ var rename = require("gulp-rename");
 
 gulp.task(function templates() {
   return gulp.src('src/templates/*.hbs')
-    .pipe(cache('templates'))
+    // .pipe(cache('templates'))
     .pipe(plumber())
     .pipe(hb({
       partials: './src/templates/partials/**/*.hbs',
