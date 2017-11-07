@@ -27,7 +27,7 @@ gulp.task(function templates() {
 
 gulp.task(function styles() {
   return gulp.src('src/styles/**/*.scss')
-    .pipe(cache('styles'))
+    // .pipe(cache('styles'))
     .pipe(plumber())
     .pipe(sass())
     .pipe(autoprefixer({

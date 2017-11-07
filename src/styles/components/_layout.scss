@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: red;
+
+  @include sm() {
+    background-color: blue;
+  }
+}
+
+.container {
+  margin-bottom: auto;
+}
+
+.center-wrapper {
+  @include center-wrapper;
+}
+
+.footer{
+  background-color: red;
+
+  @include sm() {
+    background-color: blue;
+  }
+}
+
+.copy {
+  background-color: green;
+
+  @include sm() {
+    background-color: black;
+  }
+
+
+  &__text{
+    color: white;
+
+    @include sm() {
+      color: red;
+    }
+  }
+}
+
+// =============================================================================
+
+.board {
+  height: 300px;
+  background-color: yellow;
+}
