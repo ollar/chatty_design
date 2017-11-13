@@ -1,0 +1,33 @@
+@function highlight($colour) {
+  @return adjust-hue($colour, 180deg);
+}
+
+$colours_list: (aqua, green, blue, red);
+
+@for $i from 1 through 4 {
+  .span#{$i} {
+    $colour: map-get($colours, nth($colours_list, $i));
+    line-height: 0.8em;
+    height: 0.8em;
+    // background-color: $colour;
+    // text-transform: uppercase;
+    text-align: center;
+
+    font-size: random(70) + 20 + pt;
+    font-size: random(10) + 10 + vw;
+
+    &:hover {
+      background-color: highlight($colour);
+    }
+  }
+}
+
+.board {
+  display: flex;
+  align-items: center;
+
+  .center-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

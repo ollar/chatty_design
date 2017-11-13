@@ -9,6 +9,12 @@ var autoprefixer = require('gulp-autoprefixer');
 var rename = require("gulp-rename");
 
 
+gulp.task(function copy() {
+  return gulp.src([
+    'src/scripts/*.js',
+  ]).pipe(gulp.dest('public/scripts'));
+});
+
 gulp.task(function templates() {
   return gulp.src('src/templates/*.hbs')
     // .pipe(cache('templates'))
@@ -45,7 +51,7 @@ gulp.task(function clean(done) {
 
 gulp.task('default',
   gulp.series('clean',
-    gulp.parallel('templates', 'styles',
+    gulp.parallel('templates', 'styles', 'copy',
       function bindWatchers(done) {
         gulp.watch('src/styles/**', gulp.series('styles'));
         gulp.watch('src/templates/**', gulp.series('templates'));
