@@ -2,32 +2,39 @@
   @return adjust-hue($colour, 180deg);
 }
 
-$colours_list: (aqua, green, blue, red);
+$colours_list: (aqua, green, blue, gray, red);
+$sizes_list: (12, 18, 14, 12, 16);
 
-@for $i from 1 through 4 {
-  .span#{$i} {
-    $colour: map-get($colours, nth($colours_list, $i));
-    line-height: 0.8em;
-    height: 0.8em;
-    // background-color: $colour;
-    // text-transform: uppercase;
-    text-align: center;
-
-    font-size: random(70) + 20 + pt;
-    font-size: random(10) + 10 + vw;
-
-    &:hover {
-      background-color: highlight($colour);
-    }
-  }
+.break {
+  width: 100%;
 }
 
 .board {
   display: flex;
   align-items: center;
+  margin: 5vh 0;
 
   .center-wrapper {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  @for $i from 1 through 5 {
+    .span#{$i} {
+      $colour: map-get($colours, nth($colours_list, $i));
+      line-height: 0.8em;
+      height: 0.8em;
+      // background-color: $colour;
+      // text-transform: uppercase;
+      text-align: center;
+
+      font-size: random(70) + 20 + pt;
+      // font-size: random(10) + 10 + vw;
+      font-size: nth($sizes_list, $i) + vw;
+
+      &:hover {
+        background-color: highlight($colour);
+      }
+    }
   }
 }
