@@ -43,15 +43,14 @@ body {
 
 .try-for-free {
   height: 15rem;
-  line-height: 15rem;
+  display: flex;
+  align-items: center;
 
   @include sm() {
     height: 21rem;
-    line-height: 21rem;
   }
 
   @include md() {
     height: 27rem;
-    line-height: 27rem;
   }
 }
