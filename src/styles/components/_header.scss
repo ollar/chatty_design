@@ -1,0 +1,46 @@
+.header {
+  .logo {
+    font-size: 2rem;
+
+    a {
+      text-decoration: none;
+    }
+
+    @include sm() {
+      font-size: 3rem;
+    }
+  }
+
+}
+
+.navigation {
+  .menu {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+
+    li {
+      display: block;
+      margin: 0;
+
+
+      &.signin {
+        display: none;
+      }
+
+      @include sm() {
+        margin: 0 1em;
+
+        &.signin {
+          display: block;
+          a {
+            color: transparentize(map-get($colours, blue), 0.4);
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,15 +8,21 @@ body {
 }
 
 .header {
-  background-color: red;
+  // background-color: red;
 
   .center-wrapper {
     display: flex;
     justify-content: space-between;
+    height: 3rem;
+    align-items: center;
   }
 
   @include sm() {
-    background-color: blue;
+    // background-color: blue;
+
+    .center-wrapper {
+      height: 4.5rem;
+    }
   }
 }
 
@@ -29,33 +35,23 @@ body {
 }
 
 .footer{
-  background-color: red;
-
-  @include sm() {
-    background-color: blue;
-  }
-}
-
-.copy {
-  background-color: green;
-
-  @include sm() {
-    background-color: black;
-  }
-
-
-  &__text{
-    color: white;
-
-    @include sm() {
-      color: red;
-    }
-  }
+  line-height: 1.5rem;
+  text-align: center;
 }
 
 // =============================================================================
 
-.board {
-  min-height: 300px;
-  // background-color: teal;
+.try-for-free {
+  height: 15rem;
+  line-height: 15rem;
+
+  @include sm() {
+    height: 21rem;
+    line-height: 21rem;
+  }
+
+  @include md() {
+    height: 27rem;
+    line-height: 27rem;
+  }
 }
