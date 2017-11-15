@@ -24,13 +24,16 @@ $sizes_list: (12, 18, 14, 12, 16);
       $colour: map-get($colours, nth($colours_list, $i));
       line-height: 0.8em;
       height: 0.8em;
-      // background-color: $colour;
+      background-color: $colour;
       // text-transform: uppercase;
       text-align: center;
 
       font-size: random(70) + 20 + pt;
-      // font-size: random(10) + 10 + vw;
       font-size: nth($sizes_list, $i) + vw;
+
+      @include md() {
+        font-size: nth($sizes_list, $i) - 3 + rem;
+      }
 
       &:hover {
         background-color: highlight($colour);
