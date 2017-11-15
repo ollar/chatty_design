@@ -8,6 +8,7 @@ var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require("gulp-rename");
 var sourcemaps = require('gulp-sourcemaps');
+var browserSync = require('browser-sync').create();
 
 
 gulp.task(function copy() {
@@ -15,6 +16,16 @@ gulp.task(function copy() {
     'src/scripts/*.js',
   ]).pipe(gulp.dest('public/scripts'));
 });
+
+
+gulp.task(function browser_sync(done) {
+    browserSync.init({
+      server: './public',
+    });
+
+    done();
+});
+
 
 gulp.task(function templates() {
   return gulp.src('src/templates/*.hbs')
@@ -29,7 +40,8 @@ gulp.task(function templates() {
     .pipe(rename({
       extname: '.html'
     }))
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public'))
+    .pipe(browserSync.stream());
 });
 
 
@@ -43,7 +55,8 @@ gulp.task(function styles() {
       cascade: false
     }))
     .pipe(sourcemaps.write('../maps'))
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('public/css'))
+    .pipe(browserSync.stream());
 });
 
 
@@ -53,7 +66,7 @@ gulp.task(function clean(done) {
 });
 
 gulp.task('default',
-  gulp.series('clean',
+  gulp.series('clean', 'browser_sync',
     gulp.parallel('templates', 'styles', 'copy',
       function bindWatchers(done) {
         gulp.watch('src/styles/**', gulp.series('styles'));
