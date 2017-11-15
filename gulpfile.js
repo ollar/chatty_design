@@ -11,6 +11,9 @@ var sourcemaps = require('gulp-sourcemaps');
 var browserSync = require('browser-sync').create();
 
 
+var env = 'dev';
+
+
 gulp.task(function copy() {
   return gulp.src([
     'src/scripts/*.js',
@@ -28,6 +31,7 @@ gulp.task(function browser_sync(done) {
 
 
 gulp.task(function templates() {
+  console.log(11, env)
   return gulp.src('src/templates/*.hbs')
     .pipe(sourcemaps.init())
     .pipe(plumber())
@@ -75,3 +79,18 @@ gulp.task('default',
     )
   )
 );
+
+// gulp.task(function prod(done) {
+//   env = 'prod';
+//   gulp.series('clean',
+//     gulp.parallel('templates', 'styles', 'copy', done), function(done) {
+//       done();
+//     });
+// });
+
+
+gulp.task('prod', function(done) {
+  env = 'prod';
+  gulp.series('clean',
+    gulp.parallel('templates', 'styles', 'copy', (done) => done, done))
+});
