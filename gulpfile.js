@@ -9,15 +9,19 @@ var autoprefixer = require('gulp-autoprefixer');
 var rename = require("gulp-rename");
 var sourcemaps = require('gulp-sourcemaps');
 var browserSync = require('browser-sync').create();
-
+var gulpif = require('gulp-if');
+var htmlmin = require('gulp-htmlmin');
+var uglify = require('gulp-uglify');
 
 var env = 'dev';
-
 
 gulp.task(function copy() {
   return gulp.src([
     'src/scripts/*.js',
-  ]).pipe(gulp.dest('public/scripts'));
+  ])
+    .pipe(uglify())
+    .pipe(gulp.dest('public/scripts'))
+    .pipe(browserSync.stream());
 });
 
 
@@ -31,19 +35,17 @@ gulp.task(function browser_sync(done) {
 
 
 gulp.task(function templates() {
-  console.log(11, env)
   return gulp.src('src/templates/*.hbs')
-    .pipe(sourcemaps.init())
     .pipe(plumber())
     .pipe(hb({
       partials: './src/templates/partials/**/*.hbs',
       helpers: './src/templates/helpers/*.js',
       data: './src/templates/data/**/*.{js,json}'
     }))
-    .pipe(sourcemaps.write())
     .pipe(rename({
       extname: '.html'
     }))
+    .pipe(gulpif(env === 'prod', htmlmin({collapseWhitespace: true, removeComments: true})))
     .pipe(gulp.dest('public'))
     .pipe(browserSync.stream());
 });
@@ -53,12 +55,14 @@ gulp.task(function styles() {
   return gulp.src('src/styles/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(plumber())
-    .pipe(sass())
+    .pipe(gulpif(env === 'dev', sass(), sass({
+      outputStyle: 'compressed',
+    })))
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
     }))
-    .pipe(sourcemaps.write('../maps'))
+    .pipe(gulpif(env === 'dev', sourcemaps.write('../maps')))
     .pipe(gulp.dest('public/css'))
     .pipe(browserSync.stream());
 });
@@ -75,22 +79,15 @@ gulp.task('default',
       function bindWatchers(done) {
         gulp.watch('src/styles/**', gulp.series('styles'));
         gulp.watch('src/templates/**', gulp.series('templates'));
+        gulp.watch('src/scripts/*', gulp.series('copy'));
       }
     )
   )
 );
 
-// gulp.task(function prod(done) {
-//   env = 'prod';
-//   gulp.series('clean',
-//     gulp.parallel('templates', 'styles', 'copy', done), function(done) {
-//       done();
-//     });
-// });
-
-
-gulp.task('prod', function(done) {
+gulp.task(function prod(prodDone) {
   env = 'prod';
-  gulp.series('clean',
-    gulp.parallel('templates', 'styles', 'copy', (done) => done, done))
+  return gulp.series('clean',
+    gulp.parallel('templates', 'styles', 'copy'),
+  done => done(prodDone()))();
 });

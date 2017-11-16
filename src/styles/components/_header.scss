@@ -36,9 +36,6 @@
 
         &.signin {
           display: block;
-          a {
-            color: transparentize(map-get($colours, blue), 0.4);
-          }
         }
       }
     }

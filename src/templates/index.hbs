@@ -1,9 +1,9 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
+        <title>Chatty easy going bots</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,16 +11,9 @@
         <link rel="apple-touch-icon" href="icon.png">
         <!-- Place favicon.ico in the root directory -->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-        <script>
-          WebFont.load({
-            google: {
-              families: ['Alice', 'Copse', 'Lora']
-            }
-          });
-        </script>
-
-        <link rel="stylesheet" href="css/app.css">
+        {{!-- <link rel="stylesheet" href="css/app.css"> --}}
+        <script type="text/javascript" src="scripts/stylesLoader.js" async></script>
+        <script type="text/javascript" src="scripts/line.js" async></script>
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -39,31 +32,31 @@
                 <div class="features">
                     {{> 'feature-item'
                         title='Fast&nbsp;&amp;&nbsp;Reliable'
-                        subtitle='AWS services under the hood'
-                        content='Amazon Web Services powers guarantees your bots will always be alive and ready for action.'
+                        subtitle='AWS engine under the hood'
+                        content='Amazon Web Services power guarantees your bots will always be alive and ready for action.'
                     }}
 
                     {{> 'feature-item'
                         title='Customizable'
                         subtitle="One panel to rule them all"
-                        content='With our service you can easily create bot\'s scripts. No programming skills needed.'
+                        content='You can easily create bot scripts through web app. No programming skills needed.'
                     }}
 
                     {{> 'feature-item'
                         title='Smart'
                         subtitle='ALICE is my granny'
-                        content='Bots are built on the same techs like as Loebner award-winning bots. Thats not a joke.'
+                        content='We use the same techs as Loebner award-winning bots. Thats not a joke.'
                     }}
 
                     {{> 'feature-item'
                         title='Multilingual'
                         subtitle='Easy to Expand'
-                        content='It\'s always matters to provide conversation on client\'s native language. Positive conversion dynamics will show immediately.'
+                        content='Clients always prefer native speaker wizards. Use built in localization system to improve your conversion dramatically.'
                     }}
 
                     {{> 'feature-item'
                         title='Free'
-                        subtitle='No credit card needed'
+                        subtitle='No credit card required'
                         content='You can calmly grow up your bot baby without worrying about the money. Happy bots will build our future.'
                     }}
                 </div>
@@ -78,6 +71,13 @@
 
         {{> footer }}
 
-        <script type="text/javascript" src="scripts/line.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+        <script>
+          WebFont.load({
+            google: {
+              families: ['Lora']
+            }
+          });
+        </script>
     </body>
 </html>
