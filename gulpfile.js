@@ -12,6 +12,7 @@ var browserSync = require('browser-sync').create();
 var gulpif = require('gulp-if');
 var htmlmin = require('gulp-htmlmin');
 var uglify = require('gulp-uglify');
+var inlinesource = require('gulp-inline-source');
 
 var env = 'dev';
 
@@ -19,7 +20,7 @@ gulp.task(function copy() {
   return gulp.src([
     'src/scripts/*.js',
   ])
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('public/scripts'))
     .pipe(browserSync.stream());
 });
@@ -46,6 +47,9 @@ gulp.task(function templates() {
       extname: '.html'
     }))
     .pipe(gulpif(env === 'prod', htmlmin({collapseWhitespace: true, removeComments: true})))
+    .pipe(inlinesource({
+      rootpath: 'public',
+    }))
     .pipe(gulp.dest('public'))
     .pipe(browserSync.stream());
 });
@@ -74,20 +78,17 @@ gulp.task(function clean(done) {
 });
 
 gulp.task('default',
-  gulp.series('clean', 'browser_sync',
-    gulp.parallel('templates', 'styles', 'copy',
-      function bindWatchers(done) {
-        gulp.watch('src/styles/**', gulp.series('styles'));
-        gulp.watch('src/templates/**', gulp.series('templates'));
-        gulp.watch('src/scripts/*', gulp.series('copy'));
-      }
-    )
+  gulp.series('clean', 'copy', 'styles', 'templates', 'browser_sync',
+    function bindWatchers(done) {
+      gulp.watch('src/styles/**', gulp.series('styles'));
+      gulp.watch('src/templates/**', gulp.series('templates'));
+      gulp.watch('src/scripts/*', gulp.series('copy'));
+    }
   )
 );
 
 gulp.task(function prod(prodDone) {
   env = 'prod';
-  return gulp.series('clean',
-    gulp.parallel('templates', 'styles', 'copy'),
-  done => done(prodDone()))();
+  return gulp.series('clean', 'copy', 'styles', 'templates',
+    done => done(prodDone()))();
 });

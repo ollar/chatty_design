@@ -10,10 +10,7 @@
         <link rel="manifest" href="site.webmanifest">
         <link rel="apple-touch-icon" href="icon.png">
         <!-- Place favicon.ico in the root directory -->
-
-        {{!-- <link rel="stylesheet" href="css/app.css"> --}}
-        <script type="text/javascript" src="scripts/stylesLoader.js" async></script>
-        <script type="text/javascript" src="scripts/line.js" async></script>
+        <link rel="stylesheet" href="css/app.css" inline>
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -71,13 +68,6 @@
 
         {{> footer }}
 
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-        <script>
-          WebFont.load({
-            google: {
-              families: ['Lora']
-            }
-          });
-        </script>
+        <script type="text/javascript" src="scripts/line.js" inline></script>
     </body>
 </html>
